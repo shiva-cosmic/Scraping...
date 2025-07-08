@@ -23,12 +23,20 @@ To parse HTML means to read the HTML code of a web page and turn it into a forma
 '''
 
 import requests
+from bs4 import BeautifulSoup
 
 response = requests.get(url ='https://books.toscrape.com/')
 
 # to check response use print(response) only if you want inside stuff then print(dir(response))
 
 # Important if u want html content then use print(response.content)
-print(response.content)
 
+# print(response.content)
 
+page_source = (response.content)
+
+# NOW if we want some spesific data from site then we use BeautifulSoup4
+
+soup = BeautifulSoup(page_source)
+
+print(dir(soup))
