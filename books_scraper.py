@@ -35,7 +35,7 @@ response = requests.get(url ='https://books.toscrape.com/')
 
 page_source = (response.content)
 
-# NOW if we want some spesific data from site then we use BeautifulSoup4
+# NOW if we want some specgific data from site then we use BeautifulSoup4
 
 soup = BeautifulSoup(page_source)
 
