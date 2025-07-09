@@ -37,6 +37,16 @@ page_source = (response.content)
 
 # NOW if we want some specgific data from site then we use BeautifulSoup4
 
-soup = BeautifulSoup(page_source)
+soup = BeautifulSoup(page_source, 'html.parser')
 
-print(dir(soup))
+# print(dir(soup))
+
+# print(soup)
+
+# for one, and it will return first p of whole html
+
+# print(soup.find('p'))
+
+# for all 
+
+print(soup.find_all("p"))
