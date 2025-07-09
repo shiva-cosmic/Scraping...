@@ -11,6 +11,8 @@ pip install beautifulsoup4 html5lib requests
 
 3.html5lib helps parse it correctly.
 
+4.import csv
+
 --Parse--
 
 Parse means to break down and understand something - usually data or text — in a structured way.
@@ -24,6 +26,7 @@ To parse HTML means to read the HTML code of a web page and turn it into a forma
 
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 response = requests.get(url ='https://books.toscrape.com/')
 
@@ -56,13 +59,22 @@ soup = BeautifulSoup(page_source, 'html.parser')
 
 
 heading_elements = (soup.find_all('h3'))
-
-for each_heading in heading_elements:
-  print(each_heading.get_text())
-# to get links of the product
-  each_link =each_heading.find("a")
-  print(each_link.get('href'))
 # to get the price of prduct, u can target class as well as id
 pricing_element = soup.find_all('p', {'class': 'price_color'})
 
-print(pricing_element)
+complete_data = []
+for each_heading, each_pricing_element in zip(heading_elements, pricing_element):
+  book_name = (each_heading.get_text())
+# to get links of the product
+  each_link = each_heading.find("a")
+  book_link = (each_link.get('href'))
+
+  book_price = (each_pricing_element.get_text())
+
+  complete_data.append({'book_name': book_name, 'book_price': book_price, 'book_link' : book_link })
+
+csv_filename = 'scraped_book.csv'
+fieldNames = [ 'book_name', 'book_price', 'book_link']
+
+with open(csv_filename, 'w', newline='', encoding='utf-8') as csv_file:
+  csv.DictWriter(csv_file, fieldnames=fieldNames).writerow(complete_data)
