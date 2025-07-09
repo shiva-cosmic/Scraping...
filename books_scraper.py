@@ -60,10 +60,10 @@ soup = BeautifulSoup(page_source, 'html.parser')
 
 heading_elements = (soup.find_all('h3'))
 # to get the price of prduct, u can target class as well as id
-pricing_element = soup.find_all('p', {'class': 'price_color'})
+pricing_elements = soup.find_all('p', {'class': 'price_color'})
 
 complete_data = []
-for each_heading, each_pricing_element in zip(heading_elements, pricing_element):
+for each_heading, each_pricing_element in zip(heading_elements, pricing_elements):
   book_name = (each_heading.get_text())
 # to get links of the product
   each_link = each_heading.find("a")
@@ -77,4 +77,4 @@ csv_filename = 'scraped_book.csv'
 fieldNames = [ 'book_name', 'book_price', 'book_link']
 
 with open(csv_filename, 'w', newline='', encoding='utf-8') as csv_file:
-  csv.DictWriter(csv_file, fieldnames=fieldNames).writerow(complete_data)
+  csv.DictWriter(csv_file, fieldnames=fieldNames).writerows(complete_data)
