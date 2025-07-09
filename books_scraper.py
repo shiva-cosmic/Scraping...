@@ -47,6 +47,22 @@ soup = BeautifulSoup(page_source, 'html.parser')
 
 # print(soup.find('p'))
 
-# for all 
+# for all (you can use any ex: p, h1, li, ol, header, footer anyone u just have to target that element of which u required data )
 
-print(soup.find_all("p"))
+# print(soup.find_all("p"))
+
+
+# now if you want to scrape the Prize and product name as well as product link then you have to do this and this is the main thing in scraping data.
+
+
+heading_elements = (soup.find_all('h3'))
+
+for each_heading in heading_elements:
+  print(each_heading.get_text())
+# to get links of the product
+  each_link =each_heading.find("a")
+  print(each_link.get('href'))
+# to get the price of prduct, u can target class as well as id
+pricing_element = soup.find_all('p', {'class': 'price_color'})
+
+print(pricing_element)
